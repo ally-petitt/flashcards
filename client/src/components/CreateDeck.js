@@ -2,37 +2,48 @@ import React, { useState } from "react";
 
 function CreateDeck() {
   const [deckData, setDeckData] = useState({
-    deck_title: "",
-    deck_description: "",
+    title: "",
+    description: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    document.getElementById("form").reset();
+    if (deckData.title.trim() != "") {
+      document.getElementById("form").reset();
+      document.getElementById("required-message").classList.add("d-none");
+      document.getElementById("required-message").classList.remove("d-block");
+    } else {
+      document.getElementById("required-message").classList.remove("d-none");
+      document.getElementById("required-message").classList.add("d-block");
+    }
   };
-
-  // TODO: require title
-  // TODO: Update state on change
 
   return (
     <div className="create-deck_container d-flex justify-content-center align-items-center text-center p-5">
       <form
         onSubmit={handleSubmit}
-        className="bg-light rounded w-75 h-75 p-5"
+        className="bg-light rounded w-75 h-75 p-3 p-sm-4 p-md-5"
         id="form"
         style={{ maxWidth: "800px" }}
       >
         <h3>CREATE A NEW DECK</h3>
         <label htmlFor="title" className="float-left">
-          Title
+          Title <span className="text-danger">*</span>
         </label>
         <input
-          className="form-control form-control-lg my-3"
+          className="form-control form-control-lg my-2"
           type="text"
           id="title"
-          required
+          onChange={(e) => setDeckData({ ...deckData, title: e.target.value })}
         />
-        <label htmlFor="description" className="float-left">
+        <p
+          className="text-danger float-left m-0 mb-2 d-none"
+          id="required-message"
+        >
+          The title is required
+        </p>
+        <br />
+        <label htmlFor="description" className="float-left text-left w-100">
           Description
         </label>
         <textarea
@@ -40,6 +51,9 @@ function CreateDeck() {
           type="text"
           rows="5"
           id="description"
+          onChange={(e) =>
+            setDeckData({ ...deckData, description: e.target.value })
+          }
         />
         <button type="submit" className="btn btn-outline-dark mt-3">
           Create Deck
