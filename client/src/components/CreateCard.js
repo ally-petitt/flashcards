@@ -3,7 +3,7 @@ import React from "react";
 function CreateCard() {
   return (
     <div>
-      <h1>create card</h1>
+      <h1>CREATE CARD</h1>
     </div>
   );
 }
