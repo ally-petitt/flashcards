@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend for flashcard application",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ally-petitt/french-flashcards.git"
+  },
+  "keywords": [
+    "flashcards",
+    "mern"
+  ],
+  "author": "Ally Petitt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ally-petitt/french-flashcards/issues"
+  },
+  "homepage": "https://github.com/ally-petitt/french-flashcards#readme"
+}
