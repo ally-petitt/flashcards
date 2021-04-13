@@ -18,3 +18,13 @@ mongoose
 app.listen(PORT, function () {
   console.log("server is running on port: " + PORT);
 });
+
+const users = require("./routes/api/users");
+const passport = require("./config/passport");
+
+// Passport config
+require("./config/passport")(passport);
+// Routes
+app.use("/api/users", users);
+// Passport middleware
+app.use(passport.initialize());
