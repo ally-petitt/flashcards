@@ -6,7 +6,8 @@ const app = express();
 
 const PORT = 5000;
 
-app.use(express.json());
+app.use(express.json({ type: "application/json" }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -51,8 +52,7 @@ deckRoutes.route("/:id").get((req, res) => {
 });
 
 deckRoutes.route("/add").post((req, res) => {
-  // TODO: the request is appearing as undefined
-  console.log(req.body.deck_title);
+  console.dir(req.body);
   let deck = new Deck(req.body);
   console.log(deck);
   deck
