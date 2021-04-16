@@ -9,7 +9,7 @@ function Decks() {
     <div className="p-3 d-flex justify-content-center align-items-center">
       <div className="row w-100">
         <Link
-          to="/create-deck"
+          to="/deck/create"
           className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
         >
           <div

@@ -1,21 +1,46 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function CreateDeck() {
   const [deckData, setDeckData] = useState({
     title: "",
     description: "",
+    color: "#ffffff",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (deckData.title.trim() != "") {
-      document.getElementById("form").reset();
-      document.getElementById("required-message").classList.add("d-none");
-      document.getElementById("required-message").classList.remove("d-block");
-    } else {
+    if (deckData.title.trim() === "") {
       document.getElementById("required-message").classList.remove("d-none");
       document.getElementById("required-message").classList.add("d-block");
+      return false;
     }
+
+    document.getElementById("form").reset();
+    document.getElementById("required-message").classList.add("d-none");
+    document.getElementById("required-message").classList.remove("d-block");
+
+    const newDeck = {
+      deck_info: {
+        deck_title: deckData.title,
+        deck_description: deckData.description,
+        deck_color: deckData.color,
+      },
+    };
+
+    // send post request
+    axios
+      .post("http://localhost:5000/decks/create", JSON.stringify(newDeck))
+      .then(
+        (res) => console.log(res.data),
+        (err) => console.log(err)
+      );
+    // reset state
+    setDeckData({
+      title: "",
+      description: "",
+      color: "#ffffff",
+    });
   };
 
   return (
