@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let Deck = new Schema({
-  deck_name: String,
+  deck_title: String,
+  deck_description: String,
   deck_color: String,
 });
 
