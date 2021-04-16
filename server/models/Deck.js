@@ -6,6 +6,7 @@ let Deck = new Schema({
     deck_title: String,
     deck_description: String,
     deck_color: String,
+    isStarred: Boolean,
   },
   deck_cards: {
     card_info: {

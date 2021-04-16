@@ -6,6 +6,7 @@ function CreateDeck() {
     title: "",
     description: "",
     color: "#ffffff",
+    isStarred: false,
   });
 
   const handleSubmit = (e) => {
@@ -29,12 +30,10 @@ function CreateDeck() {
     };
 
     // send post request
-    axios
-      .post("http://localhost:5000/decks/create", JSON.stringify(newDeck))
-      .then(
-        (res) => console.log(res.data),
-        (err) => console.log(err)
-      );
+    axios.post("http://localhost:5000/decks/create", newDeck).then(
+      (res) => console.log(res.data),
+      (err) => console.log(err)
+    );
     // reset state
     setDeckData({
       title: "",
