@@ -52,9 +52,7 @@ deckRoutes.route("/:id").get((req, res) => {
 });
 
 deckRoutes.route("/add").post((req, res) => {
-  console.dir(req.body);
   let deck = new Deck(req.body);
-  console.log(deck);
   deck
     .save()
     .then((deck) => {
@@ -70,9 +68,8 @@ deckRoutes.route("/update/:id").post((req, res) => {
     if (!deck) {
       res.status(404).send("deck is not found");
     } else {
-      deck.deck_title = req.body.deck_title;
-      deck.deck_description = req.body.deck_description;
-      deck.deck_color = req.body.deck_color;
+      deck.deck_info = req.body.deck_info;
+      deck.deck_cards = req.body.deck_cards;
 
       deck
         .save()
