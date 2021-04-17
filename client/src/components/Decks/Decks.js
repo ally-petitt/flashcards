@@ -34,13 +34,9 @@ function Decks() {
               <AddIcon fontSize="large" style={{ fill: "black" }}></AddIcon>
             </div>
           </Link>
-        </div>
-        <div>
-          WORK
-          <Deck id="1738" title="testing af" color="#111111" />
           {decks.decks.map((deck, i) => (
             <Deck
-              id={deck.deck_info._id}
+              id={deck._id}
               title={deck.deck_info.title}
               color={deck.deck_info.color}
               key={i}
