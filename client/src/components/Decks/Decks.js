@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import AddIcon from "@material-ui/icons/Add";
@@ -6,10 +6,18 @@ import AddIcon from "@material-ui/icons/Add";
 import Deck from "./Deck";
 
 function Decks() {
-  const [decks, setDecks] = useState({decks: []});
+  const [decks, setDecks] = useState({ decks: [] });
 
   //retrieve decks from the database
-  componentDidMount() {}
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/home")
+      .then((res) => {
+        setDecks({ decks: res.data });
+        console.dir(decks.decks);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <>
@@ -26,6 +34,18 @@ function Decks() {
               <AddIcon fontSize="large" style={{ fill: "black" }}></AddIcon>
             </div>
           </Link>
+        </div>
+        <div>
+          WORK
+          <Deck id="1738" title="testing af" color="#111111" />
+          {decks.decks.map((deck, i) => (
+            <Deck
+              id={deck.deck_info._id}
+              title={deck.deck_info.title}
+              color={deck.deck_info.color}
+              key={i}
+            />
+          ))}
         </div>
       </div>
     </>

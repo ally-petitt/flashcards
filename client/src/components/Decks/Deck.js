@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Flashcard from "./Flashcards/Flashcard";
+
+// TODO: the problem was with this component
 
 function Deck({ id, title, color }) {
   return (
@@ -17,7 +18,6 @@ function Deck({ id, title, color }) {
             <p>{title}</p>
           </div>
         </Link>
-        <Deck className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" />
       </div>
     </div>
   );

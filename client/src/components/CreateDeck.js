@@ -23,9 +23,9 @@ function CreateDeck() {
 
     const newDeck = {
       deck_info: {
-        deck_title: deckData.title,
-        deck_description: deckData.description,
-        deck_color: deckData.color,
+        title: deckData.title,
+        description: deckData.description,
+        color: deckData.color,
       },
     };
 

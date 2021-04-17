@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 let Deck = new Schema({
   deck_info: {
-    deck_title: String,
-    deck_description: String,
-    deck_color: String,
+    title: String,
+    description: String,
+    color: String,
     isStarred: Boolean,
   },
   deck_cards: {
