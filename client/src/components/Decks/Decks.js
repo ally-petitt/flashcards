@@ -14,7 +14,6 @@ function Decks() {
       .get("http://localhost:5000/home")
       .then((res) => {
         setDecks({ decks: res.data });
-        console.dir(decks.decks);
       })
       .catch((err) => console.log(err));
   }, []);
