@@ -1,6 +1,14 @@
 import React from "react";
 
-function Form({ title, buttonText, state, setState, handleSubmit }) {
+function DeckForm({
+  title,
+  buttonText,
+  state,
+  setState,
+  handleSubmit,
+  deckTitle,
+  deckDesc,
+}) {
   return (
     <div className="create-deck_container d-flex justify-content-center align-items-center text-center p-5">
       <form
@@ -17,6 +25,7 @@ function Form({ title, buttonText, state, setState, handleSubmit }) {
           className="form-control form-control-lg my-2"
           type="text"
           id="title"
+          defaultValue={deckTitle}
           onChange={(e) => setState({ ...state, title: e.target.value })}
         />
         <p
@@ -34,8 +43,9 @@ function Form({ title, buttonText, state, setState, handleSubmit }) {
           type="text"
           rows="5"
           id="description"
+          defaultValue={deckDesc}
           onChange={(e) => setState({ ...state, description: e.target.value })}
-        />
+        ></textarea>
         <button type="submit" className="btn btn-outline-dark mt-3">
           {buttonText}
         </button>
@@ -44,4 +54,4 @@ function Form({ title, buttonText, state, setState, handleSubmit }) {
   );
 }
 
-export default Form;
+export default DeckForm;

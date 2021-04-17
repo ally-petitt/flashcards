@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import EditCard from "./components/EditCard";
 import CreateCard from "./components/CreateCard";
-import CreateDeck from "./components/CreateDeck";
+import CreateDeck from "./components//Decks/CreateDeck";
 import Flashcard from "./components/Decks/Flashcards/Flashcard";
 import Decks from "./components/Decks/Decks";
 import "./App.css";

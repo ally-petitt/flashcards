@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import DeckForm from "./Decks/DeckForm";
+import DeckForm from "./DeckForm";
 
 function CreateDeck() {
   const [deckData, setDeckData] = useState({
