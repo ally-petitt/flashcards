@@ -1,5 +1,7 @@
 // TODO: add message at bottom to confirm deck was created
 
+// TODO: add button at bottom of edit deck component to delete deck
+
 // TODO: add user authentification
 
 // TODO: add a homepage

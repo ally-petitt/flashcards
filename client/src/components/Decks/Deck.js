@@ -11,7 +11,7 @@ function Deck({ id, title, color }) {
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
     >
-      <div class="position-relative">
+      <div className="position-relative">
         <div
           className="d-flex justify-content-center align-items-center rounded"
           style={{ height: "200px", backgroundColor: color }}

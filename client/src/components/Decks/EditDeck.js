@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import DeckForm from "./DeckForm";
 
 function EditDeck() {
   const [deck, setDeck] = useState({
     deck_info: {
       title: "",
       description: "",
-      color: "",
+      color: "#ffffff",
+      isStarred: false,
     },
   });
 
@@ -25,18 +25,63 @@ function EditDeck() {
       .catch((err) => console.log(err));
   }, []);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(deck);
+  };
 
   return (
-    <DeckForm
-      title="EDIT YOUR DECK"
-      buttonText="Save"
-      state={deck}
-      setState={setDeck}
-      handleSubmit={handleSubmit}
-      deckDesc={deck.deck_info.description}
-      deckTitle={deck.deck_info.title}
-    />
+    <div className="create-deck_container d-flex justify-content-center align-items-center text-center p-5">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-light rounded w-75 h-75 p-3 p-sm-4 p-md-5"
+        id="form"
+        style={{ maxWidth: "800px" }}
+      >
+        <h3>EDIT DECK</h3>
+        <label htmlFor="title" className="float-left">
+          Title <span className="text-danger">*</span>
+        </label>
+        <input
+          className="form-control form-control-lg my-2"
+          type="text"
+          id="title"
+          defaultValue={deck.deck_info.title}
+          onChange={(e) =>
+            setDeck({
+              ...deck,
+              deck_info: { ...deck.deck_info, title: e.target.value },
+            })
+          }
+        />
+        <p
+          className="text-danger float-left m-0 mb-2 d-none"
+          id="required-message"
+        >
+          The title is required
+        </p>
+        <br />
+        <label htmlFor="description" className="float-left text-left w-100">
+          Description
+        </label>
+        <textarea
+          className="form-control my-3"
+          type="text"
+          rows="5"
+          id="description"
+          defaultValue={deck.deck_info.description}
+          onChange={(e) =>
+            setDeck({
+              ...deck,
+              deck_info: { ...deck.deck_info, description: e.target.value },
+            })
+          }
+        ></textarea>
+        <button type="submit" className="btn btn-outline-dark mt-3">
+          Save
+        </button>
+      </form>
+    </div>
   );
 }
 
