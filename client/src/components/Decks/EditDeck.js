@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 function EditDeck() {
   const [deck, setDeck] = useState({
@@ -13,6 +13,7 @@ function EditDeck() {
   });
 
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     axios
@@ -27,7 +28,10 @@ function EditDeck() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(deck);
+    axios
+      .post(`http://localhost:5000/decks/update/${id}`, deck)
+      .then((res) => console.log(res.data));
+    history.push("/home");
   };
 
   return (

@@ -17,6 +17,7 @@ function Decks() {
       })
       .catch((err) => console.log(err));
   }, []);
+  console.dir(decks);
 
   return (
     <>
