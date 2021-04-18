@@ -13,7 +13,6 @@ const getDecks = (req, res) => {
 const getDeck = (req, res) => {
   let id = req.params.id;
   Deck.findById(id, (err, deck) => {
-    console.log(deck);
     res.json(deck);
   });
 };

@@ -11,6 +11,8 @@ function EditDeck() {
       isStarred: false,
     },
   });
+  // use state to rerender components once database is updated
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { id } = useParams();
   const history = useHistory();
@@ -26,12 +28,31 @@ function EditDeck() {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    if (isSubmitted === true) {
+      axios
+        .post(`http://localhost:5000/decks/update/${id}`, deck)
+        .then((res) => {
+          console.log(res.status);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [isSubmitted]);
+
+  const checkSubmit = () => {
+    if (document.getElementById("title").value.trim() !== "") {
+      setIsSubmitted(true);
+    } else {
+      document.getElementById("required-message").classList.remove("d-none");
+      document.getElementById("required-message").classList.add("d-block");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:5000/decks/update/${id}`, deck)
-      .then((res) => console.log(res.data));
-    history.push("/home");
+    if (isSubmitted) {
+      history.push("/home");
+    }
   };
 
   return (
@@ -81,7 +102,11 @@ function EditDeck() {
             })
           }
         ></textarea>
-        <button type="submit" className="btn btn-outline-dark mt-3">
+        <button
+          type="submit"
+          className="btn btn-outline-dark mt-3"
+          onClick={checkSubmit}
+        >
           Save
         </button>
       </form>
