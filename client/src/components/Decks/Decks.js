@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AddIcon from "@material-ui/icons/Add";
 
-import Deck from "./Deck";
+import Deck from "./Deck/Deck";
 
 function Decks() {
   const [decks, setDecks] = useState({ decks: [] });
@@ -37,6 +37,7 @@ function Decks() {
             <Deck
               id={deck._id}
               title={deck.deck_info.title}
+              description={deck.deck_info.description}
               color={deck.deck_info.color}
               key={i}
             />

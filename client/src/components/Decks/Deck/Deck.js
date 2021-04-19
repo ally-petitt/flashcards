@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import "./deck.css";
 
-function Deck({ id, title, color }) {
+function Deck({ id, title, color, description }) {
   const [active, setActive] = useState(false);
 
   return (
@@ -11,7 +12,7 @@ function Deck({ id, title, color }) {
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
     >
-      <div className="position-relative">
+      <div className="position-relative deck">
         <div
           className="d-flex justify-content-center align-items-center rounded"
           style={{ height: "200px", backgroundColor: color }}
@@ -24,11 +25,14 @@ function Deck({ id, title, color }) {
             />
           </Link>
           <Link
-            to={`/deck/view/${id}`}
+            to={`/deck/view/`}
             className="w-100 h-100 d-flex justify-content-center align-items-center"
           >
-            <p className="mb-0 h3 font-weight-bold text-dark">{title}</p>
+            <p className="mb-0 h3 font-weight-bold text-dark title">{title}</p>
           </Link>
+        </div>
+        <div class="overlay">
+          <div>{description}</div>
         </div>
       </div>
     </div>
