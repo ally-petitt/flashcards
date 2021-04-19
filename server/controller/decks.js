@@ -32,10 +32,9 @@ const createDeck = (req, res) => {
 const updateDeck = (req, res) => {
   Deck.findById(req.params.id, (err, deck) => {
     if (!deck) {
-      res.status(404).send("deck is not found");
+      res.status(404).send("Deck is not found");
     } else {
       deck.deck_info = req.body.deck_info;
-      deck.deck_cards = req.body.deck_cards;
 
       deck
         .save()
@@ -49,11 +48,25 @@ const updateDeck = (req, res) => {
   });
 };
 
+const deleteDeck = (req, res) => {
+  Deck.findById(req.params.id, (err, deck) => {
+    if (!deck) {
+      res.status(404).send("Deck is not found");
+    } else {
+      deck
+        .delete()
+        .then((deck) => res.json("Deck deleted"))
+        .catch((err) => res.status(404).send("Could not delete deck"));
+    }
+  });
+};
+
 const crudFunctions = {
   getDecks: getDecks,
   getDeck: getDeck,
   createDeck: createDeck,
   updateDeck: updateDeck,
+  deleteDeck: deleteDeck,
 };
 
 module.exports = crudFunctions;

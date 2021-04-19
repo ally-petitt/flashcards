@@ -11,3 +11,7 @@
 // TODO: add drag-n-drop functionality to rearrange order of decks
 
 // TODO: show flashcard deck description in an overlay when you hover over it
+
+// TODO: customize scrollbar
+
+// TODO: add 404 page for when something isn't found
