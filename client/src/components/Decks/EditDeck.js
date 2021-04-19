@@ -63,6 +63,11 @@ function EditDeck() {
       for (const button of buttons) {
         button.classList.add("d-none");
       }
+
+      // update database
+      axios
+        .delete(`http://localhost:5000/decks/delete/${id}`)
+        .catch((err) => console.log(err));
     }
   };
 
