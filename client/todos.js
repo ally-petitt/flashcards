@@ -10,8 +10,15 @@
 
 // TODO: add drag-n-drop functionality to rearrange order of decks
 
-// TODO: show flashcard deck description in an overlay when you hover over it
+// TODO: fix description overlay
 
 // TODO: customize scrollbar
 
 // TODO: add 404 page for when something isn't found
+
+// TODO: add ability to create cards within Decks model:
+    /* -add cards:{card_info: }, card_info being for every card 
+    -can generate an id for every new card formed
+    - use id in url param when updating it
+    - find using .find() 
+    - do a get request to collect information on the entire deck */

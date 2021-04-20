@@ -30,7 +30,7 @@ function Deck({ id, title, color, description }) {
             />
           </Link>
           <Link
-            to={`/deck/view/`}
+            to={`/deck/view/${id}`}
             className="w-100 h-100 d-flex justify-content-center align-items-center"
           >
             <p className="mb-0 h3 font-weight-bold text-dark title">{title}</p>
