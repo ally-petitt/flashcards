@@ -5,7 +5,7 @@ const deckRoutes = require("./routes/decks");
 const { getDecks } = require("./controller/decks");
 const app = express();
 
-const PORT = 5000;
+const PORT = 4000;
 
 app.use(express.json({ type: "application/json" }));
 app.use(express.urlencoded({ extended: true }));

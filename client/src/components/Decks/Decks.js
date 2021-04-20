@@ -11,7 +11,7 @@ function Decks() {
   //retrieve decks from the database
   useEffect(() => {
     axios
-      .get("http://localhost:5000/home")
+      .get("http://localhost:4000/home")
       .then((res) => {
         setDecks({ decks: res.data });
       })

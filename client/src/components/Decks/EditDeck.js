@@ -18,7 +18,7 @@ function EditDeck() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/decks/${id}`)
+      .get(`http://localhost:4000/decks/${id}`)
       .then((res) => {
         setDeck({
           deck_info: res.data.deck_info,
@@ -42,7 +42,7 @@ function EditDeck() {
     e.preventDefault();
     if (submitIsValid()) {
       const response = await axios
-        .post(`http://localhost:5000/decks/update/${id}`, deck)
+        .post(`http://localhost:4000/decks/update/${id}`, deck)
         .catch((err) => console.log(err));
 
       history.push("/home");
@@ -50,7 +50,6 @@ function EditDeck() {
   };
 
   const handleDelete = () => {
-    console.log("delete");
     // confirm that they would like to delete
     if (window.confirm("Are you sure you want to delete this deck?")) {
       // show that deck was deleted
@@ -66,7 +65,7 @@ function EditDeck() {
 
       // update database
       axios
-        .delete(`http://localhost:5000/decks/delete/${id}`)
+        .delete(`http://localhost:4000/decks/delete/${id}`)
         .catch((err) => console.log(err));
     }
   };
@@ -129,7 +128,7 @@ function EditDeck() {
             className="border border-danger text-danger w-100 align-items-center justify-content-center rounded mb-3"
             style={{
               height: "50px",
-              backgroundColor: "rgba(220, 53, 69, 0.3)",
+              backgroundColor: "rgba(220, 53, 69, 0.2)",
               borderWidth: "3px",
             }}
             id="delete-notif"

@@ -5,6 +5,7 @@ import "./deck.css";
 
 function Deck({ id, title, color, description }) {
   const [active, setActive] = useState(false);
+  console.log(description.trim() == "");
 
   return (
     <div
@@ -12,7 +13,11 @@ function Deck({ id, title, color, description }) {
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
     >
-      <div className="position-relative deck">
+      <div
+        className={
+          `position-relative ` + (description.trim() == "") ? null : "deck"
+        }
+      >
         <div
           className="d-flex justify-content-center align-items-center rounded"
           style={{ height: "200px", backgroundColor: color }}
@@ -21,7 +26,7 @@ function Deck({ id, title, color, description }) {
             <MoreVertIcon
               id="moreVertIcon"
               className={`position-absolute ${!active ? "d-md-none" : null}`}
-              style={{ top: "10px", right: "10px", color: "#ababab" }}
+              style={{ top: "10px", right: "20px", color: "#ababab" }}
             />
           </Link>
           <Link
@@ -31,7 +36,7 @@ function Deck({ id, title, color, description }) {
             <p className="mb-0 h3 font-weight-bold text-dark title">{title}</p>
           </Link>
         </div>
-        <div class="overlay">
+        <div id={(description.trim() == "") ? "hide-overlay" : "overlay"}>
           <div>{description}</div>
         </div>
       </div>

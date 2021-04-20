@@ -15,5 +15,3 @@
 // TODO: customize scrollbar
 
 // TODO: add 404 page for when something isn't found
-
-// TODO: show deck description when someone hovers over it PLUS add ... on overflow

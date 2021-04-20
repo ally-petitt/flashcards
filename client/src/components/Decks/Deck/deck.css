@@ -2,7 +2,7 @@
   transition: all 0.5s ease;
 }
 
-.overlay {
+#overlay {
   position: absolute;
   text-align: center;
   display: flex;
@@ -17,7 +17,7 @@
   height: 0;
 }
 
-.overlay > div {
+#overlay > div {
   opacity: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -27,15 +27,19 @@
   transition: none;
 }
 
-.deck:hover .overlay {
+.deck:hover #overlay {
   padding: 20px;
   height: 75%;
 }
 
-.deck:hover .overlay > div {
+.deck:hover #overlay > div {
   opacity: 1;
 }
 
 .deck:hover .title {
   opacity: 0;
+}
+
+#hide-overlay {
+  display: none;
 }
