@@ -37,7 +37,7 @@ function CreateDeck() {
       .catch((err) =>setWasSuccessful(false)
     );
     // reset state
-    setDeckData({
+    setDeckData({ 
       title: "",
       description: "",
       color: "#ffffff",
