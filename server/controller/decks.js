@@ -61,12 +61,10 @@ const deleteDeck = (req, res) => {
   });
 };
 
-const crudFunctions = {
-  getDecks: getDecks,
+module.exports = {
+getDecks: getDecks,
   getDeck: getDeck,
   createDeck: createDeck,
   updateDeck: updateDeck,
   deleteDeck: deleteDeck,
 };
-
-module.exports = crudFunctions;

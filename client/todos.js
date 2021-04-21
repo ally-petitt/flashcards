@@ -17,8 +17,5 @@
 // TODO: add 404 page for when something isn't found
 
 // TODO: add ability to create cards within Decks model:
-    /* -add cards:{card_info: }, card_info being for every card 
-    -can generate an id for every new card formed
-    - use id in url param when updating it
-    - find using .find() 
-    - do a get request to collect information on the entire deck */
+
+// TODO: when rendering decks, in the get request, make it so that it only gets the deck info and not all the cards
