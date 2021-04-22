@@ -6,7 +6,8 @@ const {
 } = require("../controller/decks");
 const {
   createCard,
-  readCard
+  readCard,
+  updateCard
 } = require("../controller/cards")
 const express = require("express");
 
@@ -17,10 +18,14 @@ deckRoutes.get("/:id", getDeck);
 deckRoutes.post("/create", createDeck);
 deckRoutes.post("/update/:id", updateDeck);
 deckRoutes.delete("/delete/:id", deleteDeck);
+// add function to see all cards in a deck
 
 // cards
 deckRoutes.post("/:deck_id/cards/create", createCard)
 deckRoutes.get("/:deck_id/cards/:card_id", readCard)
+deckRoutes.post("/:deck_id/cards/update/:card_id", updateCard)
+// delete card
+
 
 module.exports = deckRoutes;
  

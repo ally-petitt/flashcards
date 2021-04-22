@@ -26,4 +26,14 @@ const readCard = (req,res) => {
     })
 }
 
-module.exports = {createCard: createCard, readCard: readCard} 
+const updateCard = (req, res) => {
+    Card.findById(req.params.card_id, (err, card) => {
+        if(err) {
+            res.send("There was an error when getting the card")
+        } 
+        card.card_info = req.body.card_info
+        card.save().then(() => res.send("Card updated!")).catch(() => res.send("Card could not be updated"))
+    })
+}
+
+module.exports = {createCard: createCard, readCard: readCard, updateCard: updateCard} 
