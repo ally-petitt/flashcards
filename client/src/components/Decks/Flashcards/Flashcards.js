@@ -6,15 +6,16 @@ import AddIcon from "@material-ui/icons/Add";
 import Flashcard from "./Flashcard";
 
 function Flashcards() {
-  const [cards, setCards] = useState({ cards: []})
+  const [cards, setCards] = useState([])
   let {id} = useParams();
 
   //retrieve cards from the database
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/deck/view-cards/${id}`)
+      .get(`http://localhost:4000/decks/view-cards/${id}`)
       .then((res) => {
-        setCards({ cards: res.data });
+        setCards(res.data);
+        console.log(cards);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -35,9 +36,9 @@ function Flashcards() {
               <AddIcon fontSize="large" style={{ fill: "black" }}></AddIcon>
             </div>
           </Link>
-          {cards.cards.map((deck, i) => (
+          {cards.map((card, i) => (
             <Link to="deck/:deck_id/card/view/:card_id">
-              <Flashcard />
+              <Flashcard front={card.card_info.front} />
             </Link>
           ))}
         </div>

@@ -19,14 +19,14 @@ const createCard= (req, res) => {
 
 const readCards = (req,res) => {
     Deck.findById(req.params.id, (err, deck) => {
-        let cards = {}
+        let cards = []
 
         for (let i=0; i<deck.cards.length; i++) {
             const cardId = deck.cards[i]
             const lastItem = deck.cards.length - 1
 
             Card.findById(cardId, (err, card) => {
-                cards = {...cards, [cardId]: card};
+                cards.push(card)
 
                 if (i == lastItem) res.send(cards)
             })
