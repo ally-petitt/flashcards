@@ -15,7 +15,6 @@ function Flashcards() {
       .get(`http://localhost:4000/decks/view-cards/${id}`)
       .then((res) => {
         setCards(res.data);
-        console.log(cards);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -37,9 +36,7 @@ function Flashcards() {
             </div>
           </Link>
           {cards.map((card, i) => (
-            <Link to="deck/:deck_id/card/view/:card_id">
-              <Flashcard front={card.card_info.front} />
-            </Link>
+            <Flashcard front={card.card_info.front} back={card.card_info.back} deckId={id} cardId={card._id} />
           ))}
         </div>
       </div>

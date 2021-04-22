@@ -27,4 +27,3 @@ const connection = mongoose.connection;
 connection.once("open", function () {
   console.log("MongoDB database is connected!");
 });
- 
