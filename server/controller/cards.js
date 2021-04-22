@@ -17,4 +17,13 @@ const createCard= (req, res) => {
     })
 }
 
-module.exports = {createCard: createCard} 
+const readCard = (req,res) => {
+    Card.findById(req.params.card_id, (err, card) => {
+        if(err) {
+            res.send("There was an error when getting the card")
+        } 
+        res.json(card)
+    })
+}
+
+module.exports = {createCard: createCard, readCard: readCard} 
