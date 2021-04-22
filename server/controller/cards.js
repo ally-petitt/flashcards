@@ -13,7 +13,24 @@ const createCard= (req, res) => {
             res.status(404).send("Deck not found")
         }
         deck.cards.push(card._id)
-        deck.save().then(() => res.status(200).send("Id added to deck!")).catch(err => res.json("Could not add card to deck"))
+        deck.save()
+    })
+}
+
+const readCards = (req,res) => {
+    Deck.findById(req.params.id, (err, deck) => {
+        let cards = {}
+
+        for (let i=0; i<deck.cards.length; i++) {
+            const cardId = deck.cards[i]
+            const lastItem = deck.cards.length - 1
+
+            Card.findById(cardId, (err, card) => {
+                cards = {...cards, [cardId]: card};
+
+                if (i == lastItem) res.send(cards)
+            })
+        } 
     })
 }
 
@@ -60,4 +77,10 @@ const deleteCard = (req, res) => {
   })
 }
 
-module.exports = {createCard: createCard, readCard: readCard, updateCard: updateCard, deleteCard: deleteCard} 
+module.exports = {
+    createCard: createCard, 
+    readCard: readCard,
+    readCards: readCards,
+    updateCard: updateCard, 
+    deleteCard: deleteCard
+} 

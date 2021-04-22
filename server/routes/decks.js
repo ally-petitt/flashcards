@@ -7,6 +7,7 @@ const {
 const {
   createCard,
   readCard,
+  readCards,
   updateCard,
   deleteCard
 } = require("../controller/cards")
@@ -19,7 +20,7 @@ deckRoutes.get("/:id", getDeck);
 deckRoutes.post("/create", createDeck);
 deckRoutes.post("/update/:id", updateDeck);
 deckRoutes.delete("/delete/:id", deleteDeck);
-// add function to see all cards in a deck
+deckRoutes.get("/view-cards/:id", readCards)
 
 // cards
 deckRoutes.post("/:deck_id/cards/create", createCard)
