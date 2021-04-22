@@ -36,4 +36,28 @@ const updateCard = (req, res) => {
     })
 }
 
-module.exports = {createCard: createCard, readCard: readCard, updateCard: updateCard} 
+const deleteCard = (req, res) => {
+    // delete card row in database
+    Card.findById(req.params.card_id, (err, card) => {
+        if (!card) {
+        res.status(404).send("Card is not found");
+        } else {
+        card
+            .delete()
+            .then((card) => res.json("Card deleted"))
+            .catch((err) => res.status(404).send("Could not delete card"));
+        }
+  });
+
+  // update "cards" array in deck
+  Deck.findById(req.params.deck_id, (err, deck) => {
+    if (!deck) {
+        res.status(404).send("Deck containing this card not found")
+    }
+    deck.cards = deck.cards.filter((value, index, arr) => {return value != req.params.card_id})
+
+    deck.save()
+  })
+}
+
+module.exports = {createCard: createCard, readCard: readCard, updateCard: updateCard, deleteCard: deleteCard} 
