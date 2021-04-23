@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Flashcard from "./Flashcard";
 
 function Flashcards() {
@@ -21,7 +22,10 @@ function Flashcards() {
 
   return (
     <div>
-      <h1 className="text-center text-light">Flashcards</h1>
+      <Link to="/home">
+        <ChevronLeftIcon fontSize="large" style={{ color: 'white', marginLeft: "10px" }}/>
+      </Link>
+      <h1 className="text-center text-light mb-3">Flashcards</h1>
       <div className="p-3 d-flex justify-content-center align-items-center">
         <div className="row w-100">
           <Link
