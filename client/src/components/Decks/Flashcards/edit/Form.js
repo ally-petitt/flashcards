@@ -1,25 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Link } from "react-router-dom";
 
-function Form() {
-  const [deckData, setDeckData] = useState({
-    title: "",
-    description: "",
-    color: "#ffffff",
-    isStarred: false,
-  });
-
-  const [wasSuccessful, setWasSuccessful] = useState();
-
-  // TODO: use params to find deck
-  // TEMPORARY
-  let deckId = 17;
+function Form({ title, btnText, deckId, storeData, state, setState, wasSuccessful }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (deckData.title.trim() === "") {
+    if (state.front.trim() === "") {
       document.getElementById("required-message").classList.remove("d-none");
       document.getElementById("required-message").classList.add("d-block");
       return false;
@@ -29,25 +16,7 @@ function Form() {
     document.getElementById("required-message").classList.add("d-none");
     document.getElementById("required-message").classList.remove("d-block");
 
-    const newDeck = {
-      deck_info: {
-        title: deckData.title,
-        description: deckData.description,
-        color: deckData.color,
-      },
-    };
-
-    // send post request
-    axios.post("http://localhost:4000/decks/create", newDeck).then(
-      (res) => setWasSuccessful(true))
-      .catch((err) =>setWasSuccessful(false)
-    );
-    // reset state
-    setDeckData({ 
-      title: "",
-      description: "",
-      color: "#ffffff",
-    });
+    storeData()
   };
 
   return (
@@ -63,37 +32,40 @@ function Form() {
             id="form"
             style={{ maxWidth: "800px" }}
           >
-            <h3>CREATE A NEW DECK</h3>
-            <label htmlFor="title" className="float-left">
-              Title <span className="text-danger">*</span>
-            </label>
-            <input
-              className="form-control form-control-lg my-2"
-              type="text"
-              id="title"
-              onChange={(e) => setDeckData({ ...deckData, title: e.target.value })}
-            />
-            <p
-              className="text-danger float-left m-0 mb-2 d-none"
-              id="required-message"
-            >
-              The title is required
-            </p>
-            <br />
-            <label htmlFor="description" className="float-left text-left w-100">
-              Description
+            <h3>{title}</h3>
+            <label htmlFor="front" className="float-left">
+              Front <span className="text-danger">*</span>
             </label>
             <textarea
               className="form-control my-3"
               type="text"
               rows="5"
-              id="description"
+              id="back"
               onChange={(e) =>
-                setDeckData({ ...deckData, description: e.target.value })
+                setState({ ...state, front: e.target.value })
+              }
+            />
+            <p
+              className="text-danger float-left m-0 mb-2 d-none"
+              id="required-message"
+            >
+              This field is required
+            </p>
+            <br />
+            <label htmlFor="back" className="float-left text-left w-100">
+              Back
+            </label>
+            <textarea
+              className="form-control my-3"
+              type="text"
+              rows="5"
+              id="back"
+              onChange={(e) =>
+                setState({ ...state, back: e.target.value })
               }
             />
             <button type="submit" className="btn btn-outline-dark mt-3">
-              Create Deck
+              {btnText}
             </button>
             <div className={`text-success text-center border border-success rounded w-auto mt-3 ${wasSuccessful ? "d-block" : "d-none"}`}
             style={{ backgroundColor: "rgba(51, 167, 69, 0.2)"}}>Deck Created Successfully</div>
