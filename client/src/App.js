@@ -28,7 +28,7 @@ function App() {
         <Route path="/deck/create" component={CreateDeck} />
         <Route path="/deck/view/:id" component={Flashcards} />
         <Route path="/deck/update/:id" component={EditDeck} />
-        <Route path="/deck/:deck_id/card/view/:id" component={Flashcard} />
+        <Route path="/deck/:deck_id/card/view/:card_id" component={Flashcard} />
         <Route path="/deck/:deck_id/card/update/:card_id" component={EditCard} />
         <Route path="/deck/:deck_id/card/create" component={CreateCard} />
       </div>
