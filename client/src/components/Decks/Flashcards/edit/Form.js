@@ -68,10 +68,10 @@ function Form({ title, btnText, deckId, storeData, state, setState, wasSuccessfu
               {btnText}
             </button>
             <div className={`text-success text-center border border-success rounded w-auto mt-3 ${wasSuccessful ? "d-block" : "d-none"}`}
-            style={{ backgroundColor: "rgba(51, 167, 69, 0.2)"}}>Deck Created Successfully</div>
+            style={{ backgroundColor: "rgba(51, 167, 69, 0.2)"}}>Card Created Successfully</div>
 
             <div className={`text-danger text-center border border-danger rounded w-auto mt-3 ${wasSuccessful === false ? "d-block" : "d-none"}`}
-            style={{ backgroundColor: "rgba(220, 53, 69, 0.2)"}}>Could not create deck at this time</div>
+            style={{ backgroundColor: "rgba(220, 53, 69, 0.2)"}}>Could not create card at this time</div>
           </form>
         </div>
       </div>

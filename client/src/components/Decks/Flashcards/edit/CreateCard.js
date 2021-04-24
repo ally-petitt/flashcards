@@ -15,10 +15,8 @@ function CreateCard() {
 
     const storeData = () => {
         const newCard = {
-            card_info: {
-                front: cardData.front,
-                back: cardData.back
-            },
+            front: cardData.front,
+            back: cardData.back
         };
 
         // send post request
