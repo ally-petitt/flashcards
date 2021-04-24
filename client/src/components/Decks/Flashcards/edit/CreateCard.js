@@ -4,9 +4,11 @@ import Form from "./Form"
 import { useParams } from 'react-router';
 
 function CreateCard() {
-    const [cardData, setCardData] = useState({
+    const [cardInfo, setCardInfo] = useState({
+        card_info: {
         front: "",
         back: ""
+        }
     });
 
     const [wasSuccessful, setWasSuccessful] = useState()
@@ -15,8 +17,8 @@ function CreateCard() {
 
     const storeData = () => {
         const newCard = {
-            front: cardData.front,
-            back: cardData.back
+            front: cardInfo.front,
+            back: cardInfo.back
         };
 
         // send post request
@@ -27,7 +29,7 @@ function CreateCard() {
     }
     return (
         <div>
-            <Form title="CREATE A NEW CARD" btnText="Create Card" deckId={deck_id} storeData={storeData} state={cardData} setState={setCardData} wasSuccessful={wasSuccessful} />
+            <Form title="CREATE A NEW CARD" btnText="Create Card" deckId={deck_id} storeData={storeData} state={cardInfo} setState={setCardInfo} wasSuccessful={wasSuccessful} />
         </div>
     )
 }

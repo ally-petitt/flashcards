@@ -41,7 +41,7 @@ function Form({ title, btnText, deckId, storeData, state, setState, wasSuccessfu
               type="text"
               rows="5"
               id="back"
-              value={front ? front : null}
+              value={front ? front : ""}
               onChange={(e) =>
                 setState({ ...state, front: e.target.value })
               }
@@ -61,7 +61,7 @@ function Form({ title, btnText, deckId, storeData, state, setState, wasSuccessfu
               type="text"
               rows="5"
               id="back"
-              value={back ? back : null}
+              value={back ? back : ""}
               onChange={(e) =>
                 setState({ ...state, back: e.target.value })
               }
