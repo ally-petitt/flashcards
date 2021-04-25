@@ -2,11 +2,11 @@ import React from "react";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Link } from "react-router-dom";
 
-function Form({ title, btnText, deckId, storeData, state, setState, wasSuccessful, front, back }) {
+function Form({ text, deckId, storeData, state, setState, wasSuccessful, front, back }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (state.front.trim() === "") {
+    if (state.card_info.front.trim() === "") {
       document.getElementById("required-message").classList.remove("d-none");
       document.getElementById("required-message").classList.add("d-block");
       return false;
@@ -32,7 +32,7 @@ function Form({ title, btnText, deckId, storeData, state, setState, wasSuccessfu
             id="form"
             style={{ maxWidth: "800px" }}
           >
-            <h3>{title}</h3>
+            <h3>{text.title}</h3>
             <label htmlFor="front" className="float-left">
               Front <span className="text-danger">*</span>
             </label>
@@ -43,7 +43,7 @@ function Form({ title, btnText, deckId, storeData, state, setState, wasSuccessfu
               id="back"
               value={front ? front : ""}
               onChange={(e) =>
-                setState({ ...state, front: e.target.value })
+                setState({ ...state, card_info:{ ...state.card_info, front: e.target.value }})
               }
             />
             <p
@@ -63,17 +63,17 @@ function Form({ title, btnText, deckId, storeData, state, setState, wasSuccessfu
               id="back"
               value={back ? back : ""}
               onChange={(e) =>
-                setState({ ...state, back: e.target.value })
+                setState({ ...state, card_info:{ ...state.card_info, back: e.target.value }})
               }
             />
             <button type="submit" className="btn btn-outline-dark mt-3">
-              {btnText}
+              {text.btn}
             </button>
             <div className={`text-success text-center border border-success rounded w-auto mt-3 ${wasSuccessful ? "d-block" : "d-none"}`}
-            style={{ backgroundColor: "rgba(51, 167, 69, 0.2)"}}>Card Created Successfully</div>
+            style={{ backgroundColor: "rgba(51, 167, 69, 0.2)"}}>{text.success}</div>
 
             <div className={`text-danger text-center border border-danger rounded w-auto mt-3 ${wasSuccessful === false ? "d-block" : "d-none"}`}
-            style={{ backgroundColor: "rgba(220, 53, 69, 0.2)"}}>Could not create card at this time</div>
+            style={{ backgroundColor: "rgba(220, 53, 69, 0.2)"}}>{text.fail}</div>
           </form>
         </div>
       </div>
