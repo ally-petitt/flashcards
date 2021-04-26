@@ -6,8 +6,8 @@ import { useParams } from 'react-router';
 function CreateCard() {
     const [cardInfo, setCardInfo] = useState({
         card_info: {
-        front: "",
-        back: ""
+            front: "",
+            back: ""
         }
     });
 
@@ -15,21 +15,38 @@ function CreateCard() {
 
     const { deck_id } = useParams();
 
-    const storeData = () => {
+    const storeData = async () => {
         const newCard = {
-            front: cardInfo.front,
-            back: cardInfo.back
+            front: cardInfo.card_info.front,
+            back: cardInfo.card_info.back
         };
 
         // send post request
-        axios.post(`http://localhost:4000/decks/${deck_id}/cards/create`, newCard).then(
-            (res) => setWasSuccessful(true))
+        const result = await axios.post(`http://localhost:4000/decks/${deck_id}/cards/create`, newCard)
+            .then((res) => setWasSuccessful(true))
             .catch((err) =>setWasSuccessful(false)
         );
     }
+
+    const text = {
+        title: "CREATE YOUR CARD",
+        submitBtn: "Create Card",
+        success: "Created Successfully",
+        back: cardInfo.card_info.back,
+        front: cardInfo.card_info.front,
+        fail: "Could not create card at this time",
+        showDelete: false
+    }
+
     return (
         <div>
-            <Form title="CREATE A NEW CARD" btnText="Create Card" deckId={deck_id} storeData={storeData} state={cardInfo} setState={setCardInfo} wasSuccessful={wasSuccessful} />
+            <Form 
+            text={text} 
+            deckId={deck_id} 
+            storeData={storeData} 
+            state={cardInfo} 
+            setState={setCardInfo} 
+            wasSuccessful={wasSuccessful} />
         </div>
     )
 }

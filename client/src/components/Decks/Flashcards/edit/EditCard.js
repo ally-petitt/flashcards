@@ -59,7 +59,7 @@ function EditCard() {
 
   const text = {
     title: "EDIT YOUR CARD",
-    editBtn: "Edit Card",
+    submitBtn: "Edit Card",
     deleteBtn: "Delete",
     success: "Edit Successful",
     fail: "Could not edit card at this time",

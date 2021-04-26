@@ -19,7 +19,6 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
     storeData()
   };
 
-  console.log(text)
 
   return (
     <>
@@ -43,7 +42,7 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
               type="text"
               rows="5"
               id="back"
-              value={text.front ? text.front : ""}
+              value={text.front}
               onChange={(e) =>
                 setState({ ...state, card_info:{ ...state.card_info, front: e.target.value }})
               }
@@ -63,13 +62,13 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
               type="text"
               rows="5"
               id="back"
-              value={text.back ? text.back : ""}
+              value={text.back}
               onChange={(e) =>
                 setState({ ...state, card_info:{ ...state.card_info, back: e.target.value }})
               }
             />
             <button type="submit" className="btn btn-outline-dark mt-3">
-              {text.editBtn}
+              {text.submitBtn}
             </button>
             <div className={`text-success text-center border border-success rounded w-auto mt-3 ${wasSuccessful ? "d-block" : "d-none"}`}
             style={{ backgroundColor: "rgba(51, 167, 69, 0.2)"}}>{text.success}</div>
@@ -77,7 +76,10 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
             <div className={`text-danger text-center border border-danger rounded w-auto mt-3 ${wasSuccessful === false ? "d-block" : "d-none"}`}
             style={{ backgroundColor: "rgba(220, 53, 69, 0.2)"}}>{text.fail}</div>
           </form>
-          <button className="btn btn-outline-danger" onClick={handleDelete}>
+          <button 
+            className={`btn btn-outline-danger ${text.showDelete ? null : "d-none"}`}
+            onClick={handleDelete}
+          >
             Delete
           </button>
           <div id="after-delete" className="w-75 mx-auto mt-4 d-none">
