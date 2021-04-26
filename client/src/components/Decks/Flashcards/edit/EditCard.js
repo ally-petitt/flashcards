@@ -46,7 +46,7 @@ function EditCard() {
       axios
         .delete(`http://localhost:4000/decks/${deck_id}/cards/delete/${card_id}`)
         .then((res) => {
-                // show that card was deleted
+          // show that card was deleted
           document.getElementById("after-delete").classList.remove("d-none");
           document.getElementById("after-delete").classList.add("d-block");
           document.getElementById("delete-notif").classList.add("d-flex");
@@ -59,7 +59,7 @@ function EditCard() {
 
   const text = {
     title: "EDIT YOUR CARD",
-    submitBtn: "Edit Card",
+    submitBtn: "Save",
     deleteBtn: "Delete",
     success: "Edit Successful",
     fail: "Could not edit card at this time",

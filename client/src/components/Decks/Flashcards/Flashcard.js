@@ -17,25 +17,21 @@ function Flashcard({ front, back, deckId, cardId }) {
           className="d-flex justify-content-center align-items-center bg-light rounded"
           style={{ height: "200px" }}
         >
-          <Link to={`/deck/${deckId}/card/update/${cardId}`}>
+          <Link to={`/deck/${deckId}/card/update/${cardId}`} style={{zIndex: "100"}}>
             <MoreVertIcon
               id="moreVertIcon"
               className={`position-absolute ${!active ? "d-md-none" : null}`}
               style={{ top: "10px", right: "10px", color: "#ababab" }}
             />
           </Link>
-          <Link
-            to={`/deck/${deckId}/card/view/${cardId}`}
-            className="w-100 h-100 d-flex justify-content-center align-items-center"
-          >
-            <p className="mb-0 h3 font-weight-bold text-dark title">{front}</p>
-          </Link>
+          <p 
+          className="mb-0 h3 font-weight-bold text-dark title w-100 h-100 d-flex justify-content-center align-items-center">
+            {front}
+          </p>
         </div>
-        <Link to={`/deck/${deckId}/card/view/${cardId}`} >
-          <div id="overlay" className="text-dark">
-            <div>{back}</div>
-          </div>
-        </Link>
+        <div id="overlay" className="text-dark">
+          <div>{back}</div>
+        </div>
       </div>
     </div>
   );
