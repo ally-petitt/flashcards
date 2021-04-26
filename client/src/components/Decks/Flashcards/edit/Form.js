@@ -26,10 +26,10 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
         <ChevronLeftIcon fontSize="large" style={{ color: 'white', marginLeft: "10px" }}/>
       </Link>
       <div className="create-deck_container d-flex justify-content-center align-items-center text-center p-5">
-        <div className="form-container w-75 position-relative">
+        <div className="form-container w-75 position-relative bg-light rounded h-75 p-3 p-sm-4 p-md-5 d-flex justify-content-center, align-items-center flex-column">
           <form
             onSubmit={handleSubmit}
-            className="bg-light rounded w-100 h-75 p-3 p-sm-4 p-md-5"
+            className="w-100"
             id="form"
             style={{ maxWidth: "800px" }}
           >
@@ -76,8 +76,8 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
             <div className={`text-danger text-center border border-danger rounded w-auto mt-3 ${wasSuccessful === false ? "d-block" : "d-none"}`}
             style={{ backgroundColor: "rgba(220, 53, 69, 0.2)"}}>{text.fail}</div>
           </form>
-          <button 
-            className={`btn btn-outline-danger ${text.showDelete ? null : "d-none"}`}
+          <button
+            className={`btn btn-outline-danger mt-3 mt-md-4 ${text.showDelete ? null : "d-none"}`}
             onClick={handleDelete}
           >
             Delete
