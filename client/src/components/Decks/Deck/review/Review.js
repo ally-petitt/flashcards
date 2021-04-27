@@ -11,6 +11,7 @@ function Review() {
       back: "",
     },
   });
+  const [isFlipped, setIsFlipped] = useState(false);
   let remainingCards = [];
 
   const { id } = useParams();
@@ -45,11 +46,11 @@ function Review() {
 
   return (
     <>
-      <Link
-        to={`/deck/view/${id}`}
-        style={{ color: "white", marginLeft: "22px" }}
-      >
-        <ChevronLeftIcon fontSize="large" />
+      <Link to={`/deck/view/${id}`} style={{ marginLeft: "22px" }}>
+        <ChevronLeftIcon
+          fontSize="large"
+          style={{ color: "white", marginLeft: "10px" }}
+        />
       </Link>
       <div
         className="container d-flex justify-content-center align-items-center position-absolute flex-column text-center text-light"
@@ -61,8 +62,19 @@ function Review() {
           right: "0",
         }}
       >
-        <p className="h2">{currentCard.card_info.front}</p>
-        <button className="btn btn-outline-light mt-4">Flip</button>
+        <p className="h2">
+          {!isFlipped
+            ? currentCard.card_info.back
+            : currentCard.card_info.front}
+        </p>
+        <button
+          className="btn btn-outline-light mt-4"
+          onClick={() => {
+            setIsFlipped(!isFlipped);
+          }}
+        >
+          Flip
+        </button>
         <button className="btn btn-outline-success mt-4">Next Card</button>
       </div>
     </>
