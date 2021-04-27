@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Flashcard from "./Flashcard";
 
 function Flashcards() {
-  const [cards, setCards] = useState([])
-  let {id} = useParams();
+  const [cards, setCards] = useState([]);
+  let { id } = useParams();
 
   //retrieve cards from the database
   useEffect(() => {
@@ -22,9 +22,18 @@ function Flashcards() {
 
   return (
     <div>
-      <Link to="/home">
-        <ChevronLeftIcon fontSize="large" style={{ color: 'white', marginLeft: "10px" }}/>
-      </Link>
+      <div className="d-flex w-100 justify-content-between">
+        <Link to="/home" style={{ color: "white", marginLeft: "22px" }}>
+          <ChevronLeftIcon fontSize="large" />
+        </Link>
+        <Link
+          to={`/deck/review/${id}`}
+          className="text-light"
+          style={{ marginRight: "33px" }}
+        >
+          <h5>Review</h5>
+        </Link>
+      </div>
       <h1 className="text-center text-light mb-3">Flashcards</h1>
       <div className="p-3 d-flex justify-content-center align-items-center">
         <div className="row w-100">
@@ -40,7 +49,12 @@ function Flashcards() {
             </div>
           </Link>
           {cards.map((card, i) => (
-            <Flashcard front={card.card_info.front} back={card.card_info.back} deckId={id} cardId={card._id} />
+            <Flashcard
+              front={card.card_info.front}
+              back={card.card_info.back}
+              deckId={id}
+              cardId={card._id}
+            />
           ))}
         </div>
       </div>

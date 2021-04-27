@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import EditCard from "./components/Decks/Flashcards/edit/EditCard";
 import CreateCard from "./components/Decks/Flashcards/edit/CreateCard";
 import CreateDeck from "./components/Decks/CreateDeck";
-import Flashcard from "./components/Decks/Flashcards/Flashcard";
 import Decks from "./components/Decks/Decks";
 import "./App.css";
 import EditDeck from "./components/Decks/EditDeck";
 import Flashcards from "./components/Decks/Flashcards/Flashcards";
+import Review from "./components/Decks/Deck/review/Review";
 
 function App() {
   return (
@@ -28,7 +28,11 @@ function App() {
         <Route path="/deck/create" component={CreateDeck} />
         <Route path="/deck/view/:id" component={Flashcards} />
         <Route path="/deck/update/:id" component={EditDeck} />
-        <Route path="/deck/:deck_id/card/update/:card_id" component={EditCard} />
+        <Route path="/deck/review/:id" component={Review} />
+        <Route
+          path="/deck/:deck_id/card/update/:card_id"
+          component={EditCard}
+        />
         <Route path="/deck/:deck_id/card/create" component={CreateCard} />
       </div>
     </Router>
