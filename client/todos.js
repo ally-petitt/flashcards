@@ -8,4 +8,4 @@
 
 // TODO: add 404 page for when something isn't found
 
-// TODO: when rendering decks, in the get request, make it so that it only gets the deck info and not all the cards
+// TODO: fix flashcard rendering bug

@@ -1,10 +1,47 @@
 import { Link } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import axios from "axios";
 
 function Review() {
+  const [currentCard, setCurrentCard] = useState({
+    card_info: {
+      front: "",
+      back: "",
+    },
+  });
+  let remainingCards = [];
+
   const { id } = useParams();
+
+  useEffect(async () => {
+    const result = await axios
+      .get(`http://localhost:4000/decks/${id}`)
+      .then((res) => {
+        remainingCards = res.data.cards;
+      });
+
+    updateCard();
+  }, []);
+
+  const chooseCard = (arr) => {
+    let i = Math.floor(Math.random() * arr.length);
+    return arr[i];
+  };
+
+  const updateCard = async () => {
+    const nextCardId = chooseCard(remainingCards);
+    let nextCard;
+
+    let result = await axios
+      .get(`http://localhost:4000/decks/${id}/cards/${nextCardId}`)
+      .then((res) => {
+        nextCard = res.data;
+      });
+
+    setCurrentCard(nextCard);
+  };
 
   return (
     <>
@@ -24,7 +61,7 @@ function Review() {
           right: "0",
         }}
       >
-        <p className="h2">Front</p>
+        <p className="h2">{currentCard.card_info.front}</p>
         <button className="btn btn-outline-light mt-4">Flip</button>
         <button className="btn btn-outline-success mt-4">Next Card</button>
       </div>

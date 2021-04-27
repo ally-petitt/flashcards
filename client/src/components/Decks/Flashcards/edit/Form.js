@@ -1,9 +1,16 @@
 import React from "react";
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Link } from "react-router-dom";
 
-function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleDelete }) {
-
+function Form({
+  text,
+  deckId,
+  storeData,
+  state,
+  setState,
+  wasSuccessful,
+  handleDelete,
+}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (state.card_info.front.trim() === "") {
@@ -16,14 +23,16 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
     document.getElementById("required-message").classList.add("d-none");
     document.getElementById("required-message").classList.remove("d-block");
 
-    storeData()
+    storeData();
   };
-
 
   return (
     <>
       <Link to={`/deck/view/${deckId}`}>
-        <ChevronLeftIcon fontSize="large" style={{ color: 'white', marginLeft: "10px" }}/>
+        <ChevronLeftIcon
+          fontSize="large"
+          style={{ color: "white", marginLeft: "10px" }}
+        />
       </Link>
       <div className="create-deck_container d-flex justify-content-center align-items-center text-center p-5">
         <div className="form-container w-75 position-relative bg-light rounded h-75 p-3 p-sm-4 p-md-5 d-flex justify-content-center, align-items-center flex-column">
@@ -44,7 +53,10 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
               id="back"
               value={text.front}
               onChange={(e) =>
-                setState({ ...state, card_info:{ ...state.card_info, front: e.target.value }})
+                setState({
+                  ...state,
+                  card_info: { ...state.card_info, front: e.target.value },
+                })
               }
             />
             <p
@@ -64,20 +76,37 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
               id="back"
               value={text.back}
               onChange={(e) =>
-                setState({ ...state, card_info:{ ...state.card_info, back: e.target.value }})
+                setState({
+                  ...state,
+                  card_info: { ...state.card_info, back: e.target.value },
+                })
               }
             />
             <button type="submit" className="btn btn-outline-dark mt-3">
               {text.submitBtn}
             </button>
-            <div className={`text-success text-center border border-success rounded w-auto mt-3 ${wasSuccessful ? "d-block" : "d-none"}`}
-            style={{ backgroundColor: "rgba(51, 167, 69, 0.2)"}}>{text.success}</div>
+            <div
+              className={`text-success text-center border border-success rounded w-auto mt-3 ${
+                wasSuccessful ? "d-block" : "d-none"
+              }`}
+              style={{ backgroundColor: "rgba(51, 167, 69, 0.2)" }}
+            >
+              {text.success}
+            </div>
 
-            <div className={`text-danger text-center border border-danger rounded w-auto mt-3 ${wasSuccessful === false ? "d-block" : "d-none"}`}
-            style={{ backgroundColor: "rgba(220, 53, 69, 0.2)"}}>{text.fail}</div>
+            <div
+              className={`text-danger text-center border border-danger rounded w-auto mt-3 ${
+                wasSuccessful === false ? "d-block" : "d-none"
+              }`}
+              style={{ backgroundColor: "rgba(220, 53, 69, 0.2)" }}
+            >
+              {text.fail}
+            </div>
           </form>
           <button
-            className={`btn btn-outline-danger mt-3 mt-md-4 ${text.showDelete ? null : "d-none"}`}
+            className={`btn btn-outline-danger mt-3 mt-md-4 ${
+              text.showDelete ? null : "d-none"
+            }`}
             onClick={handleDelete}
           >
             Delete
@@ -94,7 +123,7 @@ function Form({ text, deckId, storeData, state, setState, wasSuccessful, handleD
             >
               <p className="p-1 m-0">{text.delete}</p>
             </div>
-            <Link to="/home">Return home</Link>
+            <Link to={`/deck/${deckId}`}>Return to deck</Link>
           </div>
         </div>
       </div>
