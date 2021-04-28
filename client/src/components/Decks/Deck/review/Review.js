@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 
 function Review() {
+  let remainingCards = [];
   const [currentCard, setCurrentCard] = useState({
     card_info: {
       front: "",
@@ -12,7 +13,6 @@ function Review() {
     },
   });
   const [isFlipped, setIsFlipped] = useState(false);
-  let remainingCards = [];
 
   const { id } = useParams();
 
@@ -26,22 +26,27 @@ function Review() {
     updateCard();
   }, []);
 
-  const chooseCard = (arr) => {
-    let i = Math.floor(Math.random() * arr.length);
-    return arr[i];
+  const chooseCard = () => {
+    let i = Math.floor(Math.random() * remainingCards.length);
+    return { id: remainingCards[i], index: i };
   };
 
   const updateCard = async () => {
-    const nextCardId = chooseCard(remainingCards);
+    const nextCardId = chooseCard().id;
+    const nextCardIndex = chooseCard().index;
     let nextCard;
+    console.log(nextCardId);
+    console.log(remainingCards);
 
-    let result = await axios
-      .get(`http://localhost:4000/decks/${id}/cards/${nextCardId}`)
-      .then((res) => {
-        nextCard = res.data;
-      });
-
-    setCurrentCard(nextCard);
+    if (remainingCards.length > 0) {
+      const result = await axios
+        .get(`http://localhost:4000/decks/${id}/cards/${nextCardId}`)
+        .then((res) => {
+          nextCard = res.data;
+        });
+      remainingCards.splice(nextCardIndex, 1);
+      setCurrentCard(nextCard);
+    }
   };
 
   return (
@@ -63,9 +68,7 @@ function Review() {
         }}
       >
         <p className="h2">
-          {!isFlipped
-            ? currentCard.card_info.back
-            : currentCard.card_info.front}
+          {isFlipped ? currentCard.card_info.back : currentCard.card_info.front}
         </p>
         <button
           className="btn btn-outline-light mt-4"
@@ -75,7 +78,9 @@ function Review() {
         >
           Flip
         </button>
-        <button className="btn btn-outline-success mt-4">Next Card</button>
+        <button className="btn btn-outline-success mt-4" onClick={updateCard}>
+          Next Card
+        </button>
       </div>
     </>
   );
