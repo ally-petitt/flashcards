@@ -34,30 +34,18 @@ function Review() {
     return arr[i];
   };
 
-  const setNextCardId = () => {
-    let nextCardId;
-    if (firstUpdate) {
-      console.log("first update")
-      nextCardId = chooseCard(remainingCards);
-    } else {
-      nextCardId = chooseCard(currentCards.remainingCards)
-    }
-    return nextCardId
-  }
-
   const resetState = (nextCard, nextCardIndex) => {
+    console.log(currentCards)
     if(firstUpdate) {
       setCurrentCards({
         card_info: nextCard.card_info, 
         remainingCards: remainingCards,
       })
-      console.log("first update list: ")
-      console.log(currentCards)
       setFirstUpdate(false)
     } else {
        setCurrentCards({
-        ...currentCards,
         card_info: nextCard.card_info,
+        remainingCards: currentCards.remainingCards
       });
     }
 
@@ -65,14 +53,19 @@ function Review() {
   }
 
   const updateCard = async () => {
-    const nextCardId = setNextCardId();
-    const nextCardIndex = remainingCards.indexOf(nextCardId);
-    let nextCard;
-    console.log("Update");
+    if (firstUpdate && remainingCards.length > 0) {
+      setCurrentCards({
+        ...currentCards, 
+        remainingCards: remainingCards,
+      })
+    }
+    console.log(currentCards)
 
-    if ((firstUpdate && remainingCards.length > 0) || (currentCards.remainingCards.length > 0)) {
-      console.log("get");
-      console.log("deck_id: " + deck_id)
+    const nextCardId = chooseCard(currentCards.remainingCards)
+    const nextCardIndex = currentCards.remainingCards.indexOf(nextCardId);
+    let nextCard;
+
+    if (currentCards.remainingCards.length > 0) {
       console.log("nextCardId: " + nextCardId)
       const result = await axios
         .get(`http://localhost:4000/decks/${deck_id}/cards/${nextCardId}`)
