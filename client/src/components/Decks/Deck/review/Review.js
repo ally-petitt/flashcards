@@ -6,19 +6,22 @@ import axios from "axios";
 
 function Review() {
   let remainingCards = [];
-  const [currentCard, setCurrentCard] = useState({
+  const [currentCards, setCurrentCards] = useState({
     card_info: {
       front: "",
       back: "",
     },
+    // store remaining cards so that array isn't undefined when component rerenders
+    remainingCards: [],
   });
   const [isFlipped, setIsFlipped] = useState(false);
+  const [firstUpdate, setFirstUpdate] = useState(true)
 
-  const { id } = useParams();
+  const { deck_id } = useParams();
 
   useEffect(async () => {
     const result = await axios
-      .get(`http://localhost:4000/decks/${id}`)
+      .get(`http://localhost:4000/decks/${deck_id}`)
       .then((res) => {
         remainingCards = res.data.cards;
       });
@@ -26,32 +29,65 @@ function Review() {
     updateCard();
   }, []);
 
-  const chooseCard = () => {
-    let i = Math.floor(Math.random() * remainingCards.length);
-    return { id: remainingCards[i], index: i };
+  const chooseCard = (arr) => {
+    let i = Math.floor(Math.random() * arr.length);
+    return arr[i];
   };
 
-  const updateCard = async () => {
-    const nextCardId = chooseCard().id;
-    const nextCardIndex = chooseCard().index;
-    let nextCard;
-    console.log(nextCardId);
-    console.log(remainingCards);
+  const setNextCardId = () => {
+    let nextCardId;
+    if (firstUpdate) {
+      console.log("first update")
+      nextCardId = chooseCard(remainingCards);
+    } else {
+      nextCardId = chooseCard(currentCards.remainingCards)
+    }
+    return nextCardId
+  }
 
-    if (remainingCards.length > 0) {
+  const resetState = (nextCard, nextCardIndex) => {
+    if(firstUpdate) {
+      setCurrentCards({
+        card_info: nextCard.card_info, 
+        remainingCards: remainingCards,
+      })
+      console.log("first update list: ")
+      console.log(currentCards)
+      setFirstUpdate(false)
+    } else {
+       setCurrentCards({
+        ...currentCards,
+        card_info: nextCard.card_info,
+      });
+    }
+
+    currentCards.remainingCards.splice(nextCardIndex, 1);
+  }
+
+  const updateCard = async () => {
+    const nextCardId = setNextCardId();
+    const nextCardIndex = remainingCards.indexOf(nextCardId);
+    let nextCard;
+    console.log("Update");
+
+    if ((firstUpdate && remainingCards.length > 0) || (currentCards.remainingCards.length > 0)) {
+      console.log("get");
+      console.log("deck_id: " + deck_id)
+      console.log("nextCardId: " + nextCardId)
       const result = await axios
-        .get(`http://localhost:4000/decks/${id}/cards/${nextCardId}`)
+        .get(`http://localhost:4000/decks/${deck_id}/cards/${nextCardId}`)
         .then((res) => {
           nextCard = res.data;
         });
-      remainingCards.splice(nextCardIndex, 1);
-      setCurrentCard(nextCard);
+
+      resetState(nextCard, nextCardIndex)
+      console.log(currentCards);
     }
   };
 
   return (
     <>
-      <Link to={`/deck/view/${id}`} style={{ marginLeft: "22px" }}>
+      <Link to={`/deck/view/${deck_id}`} style={{ marginLeft: "22px" }}>
         <ChevronLeftIcon
           fontSize="large"
           style={{ color: "white", marginLeft: "10px" }}
@@ -68,7 +104,9 @@ function Review() {
         }}
       >
         <p className="h2">
-          {isFlipped ? currentCard.card_info.back : currentCard.card_info.front}
+          {isFlipped
+            ? currentCards.card_info.back
+            : currentCards.card_info.front}
         </p>
         <button
           className="btn btn-outline-light mt-4"
