@@ -1,95 +1,62 @@
-import { Link } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Review() {
-  let remainingCards = [];
-  const [currentCards, setCurrentCards] = useState({
+  const [cards, setCards] = useState([]);
+  const [currentCard, setCurrentCard] = useState({
     card_info: {
       front: "",
-      back: "",
-    },
-    // store remaining cards so that array isn't undefined when component rerenders
-    remainingCards: [],
+      back: ""
+    }
   });
   const [isFlipped, setIsFlipped] = useState(false);
-  const [firstUpdate, setFirstUpdate] = useState(true)
 
   const { deck_id } = useParams();
 
   useEffect(async () => {
-    const result = await axios
-      .get(`http://localhost:4000/decks/${deck_id}`)
+    await axios
+      .get(`http://localhost:4000/decks/view-cards/${deck_id}`)
       .then((res) => {
-        remainingCards = res.data.cards;
+        setCards(shuffle(res.data));
       });
-
-    updateCard();
   }, []);
 
-  const chooseCard = (arr) => {
-    let i = Math.floor(Math.random() * arr.length);
-    return arr[i];
-  };
-
-  const resetState = (nextCard, nextCardIndex) => {
-    console.log(currentCards)
-    if(firstUpdate) {
-      console.log("first update")
-      setCurrentCards({
-        card_info: nextCard.card_info, 
-        remainingCards: remainingCards,
-      })
-      setFirstUpdate(false)
-    } else {
-       setCurrentCards({
-        card_info: nextCard.card_info,
-        remainingCards: currentCards.remainingCards
-      });
+  useEffect(() => {
+    if (cards != []) {
+      updateCard();
     }
+  }, [cards])
 
-    currentCards.remainingCards.splice(nextCardIndex, 1);
+  const shuffle = (arr) => {
+    var j, x, i;
+    for (i = arr.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = arr[i];
+        arr[i] = arr[j];
+        arr[j] = x;
+    }
+    return arr;
+}
+
+  const updateCard = () => {
+    if (cards.length >= 1 ) {
+      setCurrentCard(cards[0]);
+      cards.shift()
+      setCards(cards);
+    }
   }
-
-  const updateCard = async () => {
-    console.log(currentCards)
-    if (firstUpdate && remainingCards.length > 0) {
-      console.log("first update")
-      setCurrentCards({
-        ...currentCards, 
-        remainingCards: remainingCards,
-      })
-    }
-    console.log(currentCards.remainingCards == remainingCards)
-
-    const nextCardId = chooseCard(currentCards.remainingCards)
-    const nextCardIndex = currentCards.remainingCards.indexOf(nextCardId);
-    let nextCard;
-
-    console.log("nextCardId: " + nextCardId)
-
-    if (currentCards.remainingCards.length > 0) {
-      const result = await axios
-        .get(`http://localhost:4000/decks/${deck_id}/cards/${nextCardId}`)
-        .then((res) => {
-          nextCard = res.data;
-        });
-
-      resetState(nextCard, nextCardIndex)
-      console.log(currentCards);
-    }
-  };
 
   return (
     <div className="review position-relative" style={{height: "100vh",width: "100%"}}>
-      <a href={`/deck/view/${deck_id}`} style={{ marginLeft: "22px", position: "absolute", zIndex: 1000}}>
+      <Link to={`/deck/view/${deck_id}`} style={{ marginLeft: "22px", position: "absolute", zIndex: 1000}}>
         <ChevronLeftIcon
           fontSize="large"
           style={{ color: "white", marginLeft: "10px" }}
         />
-      </a>
+      </Link>
       <div
         className="container d-flex justify-content-center align-items-center position-absolute flex-column text-center text-light"
         style={{
@@ -101,8 +68,8 @@ function Review() {
       >
         <p className="h2">
           {isFlipped
-            ? currentCards.card_info.back
-            : currentCards.card_info.front}
+            ? currentCard.card_info.back
+            : currentCard.card_info.front}
         </p>
         <button
           className="btn btn-outline-light mt-4"
