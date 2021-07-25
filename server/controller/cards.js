@@ -1,6 +1,5 @@
 const Card = require("../models/Card");
 const Deck = require("../models/Deck");
-const mongoose = require("mongoose");
 
 const createCard= (req, res) => {
     // create a new model with information

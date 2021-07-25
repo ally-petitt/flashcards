@@ -7,7 +7,8 @@ let Deck = new Schema({
     description: String,
     color: String,
     isStarred: Boolean,
-  }, cards: Array
+  }, 
+  cards: Array
 });
 
 module.exports = mongoose.model("Deck", Deck);

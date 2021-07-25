@@ -14,7 +14,7 @@ function EditDeck() {
   });
 
   const { id } = useParams();
-  const history = useHistory();
+  const history = useHistory();   
 
   useEffect(() => {
     axios

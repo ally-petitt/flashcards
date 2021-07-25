@@ -37,6 +37,7 @@ function Review() {
   const resetState = (nextCard, nextCardIndex) => {
     console.log(currentCards)
     if(firstUpdate) {
+      console.log("first update")
       setCurrentCards({
         card_info: nextCard.card_info, 
         remainingCards: remainingCards,
@@ -53,20 +54,23 @@ function Review() {
   }
 
   const updateCard = async () => {
+    console.log(currentCards)
     if (firstUpdate && remainingCards.length > 0) {
+      console.log("first update")
       setCurrentCards({
         ...currentCards, 
         remainingCards: remainingCards,
       })
     }
-    console.log(currentCards)
+    console.log(currentCards.remainingCards == remainingCards)
 
     const nextCardId = chooseCard(currentCards.remainingCards)
     const nextCardIndex = currentCards.remainingCards.indexOf(nextCardId);
     let nextCard;
 
+    console.log("nextCardId: " + nextCardId)
+
     if (currentCards.remainingCards.length > 0) {
-      console.log("nextCardId: " + nextCardId)
       const result = await axios
         .get(`http://localhost:4000/decks/${deck_id}/cards/${nextCardId}`)
         .then((res) => {
@@ -79,18 +83,17 @@ function Review() {
   };
 
   return (
-    <>
-      <Link to={`/deck/view/${deck_id}`} style={{ marginLeft: "22px" }}>
+    <div className="review position-relative" style={{height: "100vh",width: "100%"}}>
+      <a href={`/deck/view/${deck_id}`} style={{ marginLeft: "22px", position: "absolute", zIndex: 1000}}>
         <ChevronLeftIcon
           fontSize="large"
           style={{ color: "white", marginLeft: "10px" }}
         />
-      </Link>
+      </a>
       <div
         className="container d-flex justify-content-center align-items-center position-absolute flex-column text-center text-light"
         style={{
-          height: "100vh",
-          width: "100vw",
+          bottom: "0",
           top: "0",
           left: "0",
           right: "0",
@@ -113,7 +116,7 @@ function Review() {
           Next Card
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
