@@ -20,7 +20,7 @@ function App() {
         <header className="p-3 mb-3 border-bottom border-secondary bg-dark">
           <h1 className="h4 m-0">
             <Link to="/home" className="text-light">
-              RENAME
+              FLASHCARDS
             </Link>
           </h1>
         </header>
